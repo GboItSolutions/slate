@@ -18,6 +18,7 @@ includes:
   - place
   - product
   - question
+  - room
   - waitinglist
   - errors
 

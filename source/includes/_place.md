@@ -132,6 +132,12 @@ Parametre | type | Description | Requis
 --------- | ---- | ----------- | ------
 `id` | string | Identifiant du lieu | oui
 
+### Parametres de la Requête
+
+Parametre | type | Description | Valeurs | Defaut
+--------- | ---- | ----------- | ------- | ------
+`embed` | string | Propriétés de l'objet | `room` | 
+
 ### Réponse
 
 Code | Description 
@@ -216,6 +222,78 @@ Code | Description
 ---- | -----------
 `201` | Evènement crée.
 
+## PUT Lieu Ajout d'une Salle 
+
+```csharp
+var options = new RestClientOptions("https://localhost:7117")
+{
+  MaxTimeout = -1,
+};
+var client = new RestClient(options);
+var request = new RestRequest("/place/room", Method.Put);
+request.AddHeader("Content-Type", "application/json");
+request.AddHeader("X-API-KEY", "OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ");
+
+var body = @"{
+"place": "pla_cf48fee1df5e4b7d8106785024713cf4",
+"room": "roo_6cc381d508ba4a9ba928edd46cd1d7b4"
+}";
+request.AddStringBody(body, DataFormat.Json);
+RestResponse response = await client.ExecuteAsync(request);
+Console.WriteLine(response.Content);
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("X-API-KEY", "OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ");
+
+var raw = JSON.stringify({
+  "place": "pla_cf48fee1df5e4b7d8106785024713cf4",
+  "room": "roo_6cc381d508ba4a9ba928edd46cd1d7b4"
+});
+
+var requestOptions = {
+  method: 'PUT',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://localhost:7117/place/room", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+> La commande ci-dessus retourne un fichier JSON structuré comme suit :
+
+```json
+{
+    "place": "pla_cf48fee1df5e4b7d8106785024713cf4",
+    "room": "roo_6cc381d508ba4a9ba928edd46cd1d7b4"
+}
+```
+
+Point de terminaison pour ajouter un lieu.
+
+### Requête Http
+
+`PUT https://api.openreza.com/place`
+
+### Parametres
+
+Parametre | Type | Description | Requis | Defaut
+--------- | ---- | ----------- | ------ | ------
+`place` | string  | L'identifiant du lieu | oui |
+`room` | string | L'identifiant de la salle | non | 
+
+### Réponse
+
+Code | Description 
+---- | -----------
+`201` | Salle associée au lieu.
+
 ## DELETE Lieu
 
 ```csharp
@@ -266,3 +344,50 @@ Code | Description
 ---- | -----------
 `204` | Supression effectuée.
 
+## DELETE Salle d'un lieu 
+
+```csharp
+var options = new RestClientOptions("https://localhost:7117")
+{
+  MaxTimeout = -1,
+};
+var client = new RestClient(options);
+var request = new RestRequest("/place/pla_cf48fee1df5e4b7d8106785024713cf4/room/roo_6cc381d508ba4a9ba928edd46cd1d7b4", Method.Delete);
+request.AddHeader("X-API-KEY", "OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ");
+RestResponse response = await client.ExecuteAsync(request);
+Console.WriteLine(response.Content);
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("X-API-KEY", "OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ");
+var requestOptions = {
+  method: 'DELETE',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://localhost:7117/place/pla_cf48fee1df5e4b7d8106785024713cf4/room/roo_6cc381d508ba4a9ba928edd46cd1d7b4", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+Point de terminaison pour supprimer un lieu.
+
+### Requête Http
+
+`DELETE https://api.openreza.com/place/<placeId>/room/<roomId>`
+
+### Parametres d'Url
+
+Parametre | Type | Description | Requis 
+--------- | ---- | ----------- | ------
+`placeId` | string | l'identifiant du lieu | oui
+`roomId` | string | l'identifiant de la salle | oui
+
+### Réponse
+
+Code | Description 
+---- | -----------
+`204` | Supression effectuée.
