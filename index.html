@@ -386,13 +386,20 @@
                   <li>
                     <a href="#delete-evenement" class="toc-h2 toc-link" data-title="DELETE Evènement">DELETE Evènement</a>
                   </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#log-evenements" class="toc-h1 toc-link" data-title="Log Evènements">Log Evènements</a>
-              <ul class="toc-list-h2">
                   <li>
                     <a href="#get-log-evenements" class="toc-h2 toc-link" data-title="GET Log Evènements">GET Log Evènements</a>
+                  </li>
+                  <li>
+                    <a href="#get-modeles-d-39-evenements" class="toc-h2 toc-link" data-title="GET Modèles d'evènements">GET Modèles d'evènements</a>
+                  </li>
+                  <li>
+                    <a href="#get-modele-d-39-evenement" class="toc-h2 toc-link" data-title="GET Modèle d'evènement">GET Modèle d'evènement</a>
+                  </li>
+                  <li>
+                    <a href="#post-modele-evenement" class="toc-h2 toc-link" data-title="POST Modèle Evènement">POST Modèle Evènement</a>
+                  </li>
+                  <li>
+                    <a href="#delete-modele-evenement" class="toc-h2 toc-link" data-title="DELETE Modèle Evènement">DELETE Modèle Evènement</a>
                   </li>
               </ul>
           </li>
@@ -1778,6 +1785,41 @@ L&#39;owner est le propriétaire de la réservation, c&#39;est celui qui effectu
 <td>non</td>
 <td>La valeur définie dans vos préférences de réservation, par défault non</td>
 </tr>
+<tr>
+<td><code>products</code></td>
+<td>string[]</td>
+<td>Les identifiants des produits que vous souhaitez ajoutés à l&#39;évènement.</td>
+<td>non</td>
+<td></td>
+</tr>
+<tr>
+<td><code>form</code></td>
+<td>string</td>
+<td>L&#39;identifiant du formulaire. Le formulaire doit être valide, c&#39;est à dire qu&#39;il comporte au moins 1 question</td>
+<td>non</td>
+<td></td>
+</tr>
+<tr>
+<td><code>place</code></td>
+<td>string</td>
+<td>L&#39;identifiant du lieu</td>
+<td>non</td>
+<td></td>
+</tr>
+<tr>
+<td><code>files</code></td>
+<td>string[]</td>
+<td>Les identifiants des médias.</td>
+<td>non</td>
+<td></td>
+</tr>
+<tr>
+<td><code>waiting_list</code></td>
+<td>integer</td>
+<td>La capacité de la liste d&#39;attente à ajouter.</td>
+<td>non</td>
+<td></td>
+</tr>
 </tbody></table>
 <h3 id='reponse-3'>Réponse</h3>
 <table><thead>
@@ -2279,12 +2321,12 @@ L&#39;owner est le propriétaire de la réservation, c&#39;est celui qui effectu
 <td>Supression effectuée.</td>
 </tr>
 </tbody></table>
-<h1 id='log-evenements'>Log Evènements</h1><h2 id='get-log-evenements'>GET Log Evènements</h2><div class="highlight"><pre class="highlight csharp tab-csharp"><code><span class="kt">var</span> <span class="n">options</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestClientOptions</span><span class="p">(</span><span class="s">"https://localhost:7117"</span><span class="p">)</span>
+<h2 id='get-log-evenements'>GET Log Evènements</h2><div class="highlight"><pre class="highlight csharp tab-csharp"><code><span class="kt">var</span> <span class="n">options</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestClientOptions</span><span class="p">(</span><span class="s">"https://localhost:7117"</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">MaxTimeout</span> <span class="p">=</span> <span class="p">-</span><span class="m">1</span><span class="p">,</span>
 <span class="p">};</span>
 <span class="kt">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestClient</span><span class="p">(</span><span class="n">options</span><span class="p">);</span>
-<span class="kt">var</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestRequest</span><span class="p">(</span><span class="s">"/eventlog/eve_e9088d199f274054b61058c0dc027021"</span><span class="p">,</span> <span class="n">Method</span><span class="p">.</span><span class="n">Get</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestRequest</span><span class="p">(</span><span class="s">"/event/logs/eve_e9088d199f274054b61058c0dc027021"</span><span class="p">,</span> <span class="n">Method</span><span class="p">.</span><span class="n">Get</span><span class="p">);</span>
 <span class="n">request</span><span class="p">.</span><span class="nf">AddHeader</span><span class="p">(</span><span class="s">"x-api-key"</span><span class="p">,</span> <span class="s">"KS-T6EBI45KSQeceuEoOOCRlZd4B-Dvu5YmA3B0t6MOotMO3PWhb4Gkr5RVPbgmP"</span><span class="p">);</span>
 <span class="n">RestResponse</span> <span class="n">response</span> <span class="p">=</span> <span class="k">await</span> <span class="n">client</span><span class="p">.</span><span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
 <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">Content</span><span class="p">);</span>
@@ -2297,7 +2339,7 @@ L&#39;owner est le propriétaire de la réservation, c&#39;est celui qui effectu
   <span class="na">redirect</span><span class="p">:</span> <span class="dl">'</span><span class="s1">follow</span><span class="dl">'</span>
 <span class="p">};</span>
 
-<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://localhost:7117/eventlog/eve_e9088d199f274054b61058c0dc027021</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://localhost:7117/event/logs/eve_e9088d199f274054b61058c0dc027021</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
   <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">error</span><span class="dl">'</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
@@ -2323,8 +2365,8 @@ L&#39;owner est le propriétaire de la réservation, c&#39;est celui qui effectu
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <p>Point de terminaison pour retirer tous les logs d&#39;un évènement.</p>
-<h3 id='requete-http'>Requête Http</h3>
-<p><code>GET https://api.openreza.com/eventlog/&lt;id&gt;</code></p>
+<h3 id='requete-http-10'>Requête Http</h3>
+<p><code>GET https://api.openreza.com/event/logs/&lt;id&gt;</code></p>
 <h3 id='parametres-de-l-39-url'>Parametres de l&#39;URL</h3>
 <table><thead>
 <tr>
@@ -2339,7 +2381,7 @@ L&#39;owner est le propriétaire de la réservation, c&#39;est celui qui effectu
 <td>L&#39;identifiant de l&#39;évènement.</td>
 </tr>
 </tbody></table>
-<h3 id='parametres-de-requete'>Parametres de Requête</h3>
+<h3 id='parametres-de-requete-3'>Parametres de Requête</h3>
 <table><thead>
 <tr>
 <th>Parametre</th>
@@ -2355,7 +2397,7 @@ L&#39;owner est le propriétaire de la réservation, c&#39;est celui qui effectu
 <td>created.desc, created.asc</td>
 </tr>
 </tbody></table>
-<h3 id='reponse'>Réponse</h3>
+<h3 id='reponse-10'>Réponse</h3>
 <table><thead>
 <tr>
 <th>Code</th>
@@ -2365,6 +2407,311 @@ L&#39;owner est le propriétaire de la réservation, c&#39;est celui qui effectu
 <tr>
 <td><code>200</code></td>
 <td>OK</td>
+</tr>
+</tbody></table>
+<h2 id='get-modeles-d-39-evenements'>GET Modèles d&#39;evènements</h2><div class="highlight"><pre class="highlight csharp tab-csharp"><code><span class="kt">var</span> <span class="n">options</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestClientOptions</span><span class="p">(</span><span class="s">"https://localhost:7117"</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">MaxTimeout</span> <span class="p">=</span> <span class="p">-</span><span class="m">1</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="kt">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestClient</span><span class="p">(</span><span class="n">options</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestRequest</span><span class="p">(</span><span class="s">"/event/template"</span><span class="p">,</span> <span class="n">Method</span><span class="p">.</span><span class="n">Get</span><span class="p">);</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">AddHeader</span><span class="p">(</span><span class="s">"X-API-KEY"</span><span class="p">,</span> <span class="s">"OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ"</span><span class="p">);</span>
+<span class="n">RestResponse</span> <span class="n">response</span> <span class="p">=</span> <span class="k">await</span> <span class="n">client</span><span class="p">.</span><span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">Content</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">X-API-KEY</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">'</span><span class="s1">follow</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://localhost:7117/event/template</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">error</span><span class="dl">'</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>La commande ci-dessus retourne un fichier JSON structuré comme suit :</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"page_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"page_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evt_b4e914e2de3f4d6c9a912b16fc26c6c2"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="mi">1705488947896</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="mi">1705488947900</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mindshare"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+      </span><span class="err">//</span><span class="w"> </span><span class="err">plus</span><span class="w"> </span><span class="err">de</span><span class="w"> </span><span class="err">résultats</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Point de terminaison pour retirer tous les modèle d&#39;évènements.</p>
+<h3 id='requete-http-11'>Requête Http</h3>
+<p><code>GET https://api.openreza.com/event/template</code></p>
+<h3 id='parametres-de-requete-4'>Parametres de Requête</h3>
+<table><thead>
+<tr>
+<th>Parametre</th>
+<th>Default</th>
+<th>Description</th>
+<th>Valeurs</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>order</code></td>
+<td>created.desc</td>
+<td>Trie les résultats par date de création.</td>
+<td>created.desc, created.asc</td>
+</tr>
+<tr>
+<td><code>filter</code></td>
+<td>futur</td>
+<td>Retourne les résultats suivant le filtre appliqué</td>
+<td>title</td>
+</tr>
+</tbody></table>
+
+<p><em>Le filtre</em> <strong>title</strong> <em>doit contenir</em> <strong>-</strong>, <em>la partie droite représentant la chaîne de charactère à trouver.</em></p>
+<h3 id='reponse-11'>Réponse</h3>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>200</code></td>
+<td>OK</td>
+</tr>
+</tbody></table>
+<h2 id='get-modele-d-39-evenement'>GET Modèle d&#39;evènement</h2><div class="highlight"><pre class="highlight csharp tab-csharp"><code><span class="kt">var</span> <span class="n">options</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestClientOptions</span><span class="p">(</span><span class="s">"https://localhost:7117"</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">MaxTimeout</span> <span class="p">=</span> <span class="p">-</span><span class="m">1</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="kt">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestClient</span><span class="p">(</span><span class="n">options</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestRequest</span><span class="p">(</span><span class="s">"/event/template/evt_89870b9a2e5546459a0b432b7ed952b6?embed=form;room;place"</span><span class="p">,</span> <span class="n">Method</span><span class="p">.</span><span class="n">Get</span><span class="p">);</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">AddHeader</span><span class="p">(</span><span class="s">"X-API-KEY"</span><span class="p">,</span> <span class="s">"OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ"</span><span class="p">);</span>
+<span class="n">RestResponse</span> <span class="n">response</span> <span class="p">=</span> <span class="k">await</span> <span class="n">client</span><span class="p">.</span><span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">Content</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">X-API-KEY</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">'</span><span class="s1">follow</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://localhost:7117/event/template/evt_89870b9a2e5546459a0b432b7ed952b6?embed=form;room;place</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">error</span><span class="dl">'</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>La commande ci-dessus retourne un fichier JSON structuré comme suit :</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evt_89870b9a2e5546459a0b432b7ed952b6"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="mi">1705501293806</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="mi">1705501293810</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ROI"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Point de terminaison pour retirer un modèle d&#39;évènement.</p>
+<h3 id='requete-http-12'>Requête Http</h3>
+<p><code>GET https://api.openreza.com/event/template&lt;id&gt;</code></p>
+<h3 id='parametres-d-39-url-2'>Parametres d&#39;Url</h3>
+<table><thead>
+<tr>
+<th>Parametre</th>
+<th>Type</th>
+<th>Description</th>
+<th>Requis</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>id</code></td>
+<td>string</td>
+<td>l&#39;identifiant du modèle d&#39;évènement</td>
+<td>oui</td>
+</tr>
+</tbody></table>
+<h3 id='parametres-de-requete-5'>Parametres de Requête</h3>
+<table><thead>
+<tr>
+<th>Parametre</th>
+<th>Default</th>
+<th>Description</th>
+<th>Valeurs</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>embed</code></td>
+<td></td>
+<td>propriétés de l&#39;objet</td>
+<td>form, room, place</td>
+</tr>
+</tbody></table>
+<h3 id='reponse-12'>Réponse</h3>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>200</code></td>
+<td>OK</td>
+</tr>
+</tbody></table>
+<h2 id='post-modele-evenement'>POST Modèle Evènement</h2><div class="highlight"><pre class="highlight csharp tab-csharp"><code><span class="kt">var</span> <span class="n">options</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestClientOptions</span><span class="p">(</span><span class="s">"https://localhost:7117"</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">MaxTimeout</span> <span class="p">=</span> <span class="p">-</span><span class="m">1</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="kt">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestClient</span><span class="p">(</span><span class="n">options</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestRequest</span><span class="p">(</span><span class="s">"/event/template"</span><span class="p">,</span> <span class="n">Method</span><span class="p">.</span><span class="n">Post</span><span class="p">);</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">AddHeader</span><span class="p">(</span><span class="s">"Content-Type"</span><span class="p">,</span> <span class="s">"application/json"</span><span class="p">);</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">AddHeader</span><span class="p">(</span><span class="s">"X-API-KEY"</span><span class="p">,</span> <span class="s">"OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ"</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">body</span> <span class="p">=</span> <span class="s">@"{
+"</span> <span class="p">+</span> <span class="s">"\n"</span> <span class="p">+</span>
+<span class="s">@"    ""event"" : ""eve_065eb5d11205416fb607d431f48dad3d""
+"</span> <span class="p">+</span> <span class="s">"\n"</span> <span class="p">+</span>
+<span class="s">@"}"</span><span class="p">;</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">AddStringBody</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">DataFormat</span><span class="p">.</span><span class="n">Json</span><span class="p">);</span>
+<span class="n">RestResponse</span> <span class="n">response</span> <span class="p">=</span> <span class="k">await</span> <span class="n">client</span><span class="p">.</span><span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">Content</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">X-API-KEY</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">event</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">eve_065eb5d11205416fb607d431f48dad3d</span><span class="dl">"</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">'</span><span class="s1">follow</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://localhost:7117/event/template</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">error</span><span class="dl">'</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>La commande ci-dessus retourne un fichier JSON structuré comme suit :</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evt_89870b9a2e5546459a0b432b7ed952b6"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="mi">1705501293806</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="mi">1705501293810</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ROI"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Point de terminaison pour ajouter un modèle d&#39;évènement.</p>
+<h3 id='requete-http-13'>Requête Http</h3>
+<p><code>POST https://api.openreza.com/event/template</code></p>
+<h3 id='parametres-7'>Parametres</h3>
+<table><thead>
+<tr>
+<th>Parametre</th>
+<th>Type</th>
+<th>Description</th>
+<th>Requis</th>
+<th>Defaut</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>event</code></td>
+<td>string</td>
+<td>L&#39;identifiant de l&#39;évènement</td>
+<td>oui</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>string</td>
+<td>Le titre du modèle. Si nul le modèle prendra le nom de l&#39;évènement</td>
+<td>non</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='reponse-13'>Réponse</h3>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>201</code></td>
+<td>Modèle d&#39;évènement crée.</td>
+</tr>
+</tbody></table>
+<h2 id='delete-modele-evenement'>DELETE Modèle Evènement</h2><div class="highlight"><pre class="highlight csharp tab-csharp"><code><span class="kt">var</span> <span class="n">options</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestClientOptions</span><span class="p">(</span><span class="s">"https://localhost:7117"</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">MaxTimeout</span> <span class="p">=</span> <span class="p">-</span><span class="m">1</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="kt">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestClient</span><span class="p">(</span><span class="n">options</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestRequest</span><span class="p">(</span><span class="s">"/event/template/evt_89870b9a2e5546459a0b432b7ed952b6"</span><span class="p">,</span> <span class="n">Method</span><span class="p">.</span><span class="n">Delete</span><span class="p">);</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">AddHeader</span><span class="p">(</span><span class="s">"X-API-KEY"</span><span class="p">,</span> <span class="s">"OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ"</span><span class="p">);</span>
+<span class="n">RestResponse</span> <span class="n">response</span> <span class="p">=</span> <span class="k">await</span> <span class="n">client</span><span class="p">.</span><span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">Content</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">X-API-KEY</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">DELETE</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">'</span><span class="s1">follow</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://localhost:7117/event/template/evt_89870b9a2e5546459a0b432b7ed952b6</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">error</span><span class="dl">'</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<p>Point de terminaison pour supprimer un modèle d&#39;évènement.</p>
+<h3 id='requete-http-14'>Requête Http</h3>
+<p><code>DELETE https://api.openreza.com/event/template/&lt;id&gt;</code></p>
+<h3 id='parametres-d-39-url-3'>Parametres d&#39;Url</h3>
+<table><thead>
+<tr>
+<th>Parametre</th>
+<th>Type</th>
+<th>Description</th>
+<th>Requis</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>id</code></td>
+<td>string</td>
+<td>l&#39;identifiant de l&#39;évènement</td>
+<td>oui</td>
+</tr>
+</tbody></table>
+<h3 id='reponse-14'>Réponse</h3>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>204</code></td>
+<td>Supression effectuée.</td>
 </tr>
 </tbody></table>
 <h1 id='formulaire'>Formulaire</h1><h2 id='get-formulaires'>GET Formulaires</h2><div class="highlight"><pre class="highlight csharp tab-csharp"><code><span class="kt">var</span> <span class="n">options</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">RestClientOptions</span><span class="p">(</span><span class="s">"https://localhost:7117"</span><span class="p">)</span>
