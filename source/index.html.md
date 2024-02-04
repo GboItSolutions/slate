@@ -12,7 +12,6 @@ includes:
   - booking
   - client
   - events
-  - eventLog
   - form
   - media
   - place

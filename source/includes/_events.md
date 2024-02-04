@@ -196,7 +196,6 @@ RestResponse response = await client.ExecuteAsync(request);
 Console.WriteLine(response.Content);
 ```
 
-
 ```javascript
 var myHeaders = new Headers();
 myHeaders.append("X-ULTIM-ORIGIN", "{{origin}}");
@@ -225,7 +224,6 @@ fetch("https://localhost:7117/event", requestOptions)
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
 ```
-
 
 > La commande ci-dessus retourne un fichier JSON structuré comme suit :
 
@@ -271,6 +269,11 @@ Parametre | Type | Description | Requis | Defaut
 `max_booking_per_person` | integer | Le nombre de personne qu'une personne peut inscrire à l'évènement. Minimum 1. | non | La valeur définie dans vos préférences de réservation, par défault 1.
 `accept_client_message` | boolean | Est-ce que les personnes qui réservent peuvent completer leur réservation avec un message personnalisé ? | non | La valeur définie dans vos préférences de réservation, par défault oui
 `use_owner_infos_for_additional_bookings` | boolean | Utiliser les informations fournis par le créateur de la réservation pour les réservations supplémentaires ? | non | La valeur définie dans vos préférences de réservation, par défault non
+`products` | string[] | Les identifiants des produits que vous souhaitez ajoutés à l'évènement. | non
+`form` | string | L'identifiant du formulaire. Le formulaire doit être valide, c'est à dire qu'il comporte au moins 1 question | non
+`place` | string | L'identifiant du lieu | non
+`files` | string[] | Les identifiants des médias. | non
+`waiting_list` | integer | La capacité de la liste d'attente à ajouter. | non
 
 ### Réponse
 
@@ -705,3 +708,341 @@ Code | Description
 ---- | -----------
 `204` | Supression effectuée.
 
+
+## GET Log Evènements
+
+```csharp
+var options = new RestClientOptions("https://localhost:7117")
+{
+  MaxTimeout = -1,
+};
+var client = new RestClient(options);
+var request = new RestRequest("/event/logs/eve_e9088d199f274054b61058c0dc027021", Method.Get);
+request.AddHeader("x-api-key", "KS-T6EBI45KSQeceuEoOOCRlZd4B-Dvu5YmA3B0t6MOotMO3PWhb4Gkr5RVPbgmP");
+RestResponse response = await client.ExecuteAsync(request);
+Console.WriteLine(response.Content);
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("x-api-key", "KS-T6EBI45KSQeceuEoOOCRlZd4B-Dvu5YmA3B0t6MOotMO3PWhb4Gkr5RVPbgmP");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://localhost:7117/event/logs/eve_e9088d199f274054b61058c0dc027021", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+> La commande ci-dessus retourne un fichier JSON structuré comme suit :
+
+```json
+[
+    {
+        "id": "evl_2858ea26e18c4577b19eced942f792da",
+        "event": "eve_e9088d199f274054b61058c0dc027021",
+        "description": "pla_7f8d81e81dd04c628f99153f5893d05d",
+        "type": "ADD_PLACE",
+        "created": "2023-12-27T18:36:38Z"
+    },
+    {
+        "id": "evl_a57cb345e7c04520812055c04417f694",
+        "event": "eve_e9088d199f274054b61058c0dc027021",
+        "description": "e-markets",
+        "type": "CREATION",
+        "created": "2023-12-27T18:27:12Z"
+    }
+]
+```
+
+Point de terminaison pour retirer tous les logs d'un évènement.
+
+### Requête Http
+
+`GET https://api.openreza.com/event/logs/<id>`
+
+### Parametres de l'URL
+
+Parametre | Type | Description 
+--------- | ---- | ----------- 
+`id` | string | L'identifiant de l'évènement.
+
+### Parametres de Requête
+
+Parametre | Default | Description | Valeurs
+--------- | ------- | ----------- | -------
+`order` | created.desc | Trie les résultats par date de création. | created.desc, created.asc
+
+### Réponse
+
+Code | Description 
+---- | -----------
+`200` | OK
+
+## GET Modèles d'evènements
+
+```csharp
+var options = new RestClientOptions("https://localhost:7117")
+{
+  MaxTimeout = -1,
+};
+var client = new RestClient(options);
+var request = new RestRequest("/event/template", Method.Get);
+request.AddHeader("X-API-KEY", "OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ");
+RestResponse response = await client.ExecuteAsync(request);
+Console.WriteLine(response.Content);
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("X-API-KEY", "OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://localhost:7117/event/template", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+> La commande ci-dessus retourne un fichier JSON structuré comme suit :
+
+```json
+{
+    "page_size": 10,
+    "page_number": 1,
+    "data": [
+        {
+            "id": "evt_b4e914e2de3f4d6c9a912b16fc26c6c2",
+            "created": 1705488947896,
+            "updated": 1705488947900,
+            "title": "mindshare",
+            "capacity": 1
+        },
+      // plus de résultats
+    ],
+    "count": 6,
+    "total": 6,
+    "total_page": 1
+}
+```
+
+Point de terminaison pour retirer tous les modèle d'évènements.
+
+### Requête Http
+
+`GET https://api.openreza.com/event/template`
+
+### Parametres de Requête
+
+Parametre | Default | Description | Valeurs
+--------- | ------- | ----------- | -------
+`order` | created.desc | Trie les résultats par date de création. | created.desc, created.asc
+`filter`| futur | Retourne les résultats suivant le filtre appliqué | title
+
+*Le filtre* **title** *doit contenir* **-**, *la partie droite représentant la chaîne de charactère à trouver.*
+
+### Réponse
+
+Code | Description 
+---- | -----------
+`200` | OK
+
+## GET Modèle d'evènement
+
+```csharp
+var options = new RestClientOptions("https://localhost:7117")
+{
+  MaxTimeout = -1,
+};
+var client = new RestClient(options);
+var request = new RestRequest("/event/template/evt_89870b9a2e5546459a0b432b7ed952b6?embed=form;room;place", Method.Get);
+request.AddHeader("X-API-KEY", "OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ");
+RestResponse response = await client.ExecuteAsync(request);
+Console.WriteLine(response.Content);
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("X-API-KEY", "OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://localhost:7117/event/template/evt_89870b9a2e5546459a0b432b7ed952b6?embed=form;room;place", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+
+> La commande ci-dessus retourne un fichier JSON structuré comme suit :
+
+```json
+{
+    "id": "evt_89870b9a2e5546459a0b432b7ed952b6",
+    "created": 1705501293806,
+    "updated": 1705501293810,
+    "title": "ROI",
+    "capacity": 15
+}
+```
+
+Point de terminaison pour retirer un modèle d'évènement.
+
+### Requête Http
+
+`GET https://api.openreza.com/event/template<id>`
+
+### Parametres d'Url
+
+Parametre | Type | Description | Requis 
+--------- | ---- | ----------- | ------
+`id` | string | l'identifiant du modèle d'évènement | oui
+
+### Parametres de Requête
+
+Parametre | Default | Description | Valeurs
+--------- | ------- | ----------- | -------
+`embed` |  | propriétés de l'objet | form, room, place
+
+### Réponse
+
+Code | Description 
+---- | -----------
+`200` | OK
+
+## POST Modèle Evènement
+
+```csharp
+var options = new RestClientOptions("https://localhost:7117")
+{
+  MaxTimeout = -1,
+};
+var client = new RestClient(options);
+var request = new RestRequest("/event/template", Method.Post);
+request.AddHeader("Content-Type", "application/json");
+request.AddHeader("X-API-KEY", "OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ");
+var body = @"{
+" + "\n" +
+@"    ""event"" : ""eve_065eb5d11205416fb607d431f48dad3d""
+" + "\n" +
+@"}";
+request.AddStringBody(body, DataFormat.Json);
+RestResponse response = await client.ExecuteAsync(request);
+Console.WriteLine(response.Content);
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("X-API-KEY", "OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ");
+
+var raw = JSON.stringify({
+  "event": "eve_065eb5d11205416fb607d431f48dad3d"
+});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://localhost:7117/event/template", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+> La commande ci-dessus retourne un fichier JSON structuré comme suit :
+
+```json
+{
+    "id": "evt_89870b9a2e5546459a0b432b7ed952b6",
+    "created": 1705501293806,
+    "updated": 1705501293810,
+    "title": "ROI",
+    "capacity": 15
+}
+```
+
+Point de terminaison pour ajouter un modèle d'évènement.
+
+### Requête Http
+
+`POST https://api.openreza.com/event/template`
+
+### Parametres
+
+Parametre | Type | Description | Requis | Defaut
+--------- | ---- | ----------- | ------ | ------
+`event` | string  | L'identifiant de l'évènement | oui |
+`title` | string  | Le titre du modèle. Si nul le modèle prendra le nom de l'évènement | non |
+
+### Réponse
+
+Code | Description 
+---- | -----------
+`201` | Modèle d'évènement crée.
+
+## DELETE Modèle Evènement
+
+```csharp
+var options = new RestClientOptions("https://localhost:7117")
+{
+  MaxTimeout = -1,
+};
+var client = new RestClient(options);
+var request = new RestRequest("/event/template/evt_89870b9a2e5546459a0b432b7ed952b6", Method.Delete);
+request.AddHeader("X-API-KEY", "OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ");
+RestResponse response = await client.ExecuteAsync(request);
+Console.WriteLine(response.Content);
+```
+
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("X-API-KEY", "OPR-TbqZzAJnut3WRj6wRhO1OCnOp2K4ADChXvvaVF2XAraFbKXO1NujVX9TjxgQ");
+
+var requestOptions = {
+  method: 'DELETE',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://localhost:7117/event/template/evt_89870b9a2e5546459a0b432b7ed952b6", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+Point de terminaison pour supprimer un modèle d'évènement.
+
+### Requête Http
+
+`DELETE https://api.openreza.com/event/template/<id>`
+
+### Parametres d'Url
+
+Parametre | Type | Description | Requis 
+--------- | ---- | ----------- | ------
+`id` | string | l'identifiant de l'évènement | oui
+
+### Réponse
+
+Code | Description 
+---- | -----------
+`204` | Supression effectuée.
